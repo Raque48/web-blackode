@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>VideojuegosApp | Creación de Videojuegos</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" >
+  </head>
+
+  <body>
+
+    <header th:insert="~{fragmentos/menu::menu-principal}">  
+    </header>
+
+    <main role="main">     
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header"><strong>Datos del Usuario</strong></h4>              
+          <div class="card-body">
+            <form method="post" th:action="@{/usuarios/guardar}" th:object="${usuario}" enctype="multipart/form-data"> 
+				<div th:if="${#fields.hasErrors('*')}"class='alert alert-danger' role='alert'>
+					Por favor corrija los siguientes errores:
+					<ul>
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+					</ul>
+				</div>             
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+					<input type="hidden" th:field="*{id}">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre" placeholder="Nombre del Usuario" required="required">
+                  </div>   
+                </div>
+                <div class="col-md-6"> 
+                <div class="form-group">
+                    <label for="apellidoP">Apellido Paterno</label>
+                    <input type="text" class="form-control" th:field="*{apellidoP}" id="apellidoP" name="apellidoP" placeholder="Apellido Paterno" required="required">
+                  </div>   
+              </div>    
+              </div>
+             <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="apellidoM">Apellido Materno</label>
+                    <input type="text" class="form-control" th:field="*{apellidoM}" id="apellidoM" name="apellidoM" placeholder="Apellido Materno" required="required">
+                  </div>   
+                </div>
+                <div class="col-md-6"> 
+                <div class="form-group">
+                    <label for="correoElec">Correo Electronico</label>
+                    <input type="text" class="form-control" th:field="*{correoElec}" id="correoElec" name="correoElec" placeholder="Correo Electronico" required="required">
+                  </div>   
+              </div>    
+             </div>
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="contra">Contraseña</label>
+                    <input type="text" class="form-control" th:field="*{contra}" id="contra" name="contra" placeholder="Contraseña" required="required">
+                  </div>   
+                </div>
+                <div class="col-md-6"> 
+                <div class="form-group">
+                    <label for="confirmarContra">Confirmar Contraseña</label>
+                    <input type="text" class="form-control" th:field="*{confirmarContra}" id="confirmarContra" name="confirmarContra" placeholder="Confirmar contraseña" required="required">
+                  </div>   
+              </div>
+              </div>
+              
+              <hr>
+              <button type="submit" class="btn btn-primary">Guardar</button>  
+            </form>
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+  </main>
+
+    <footer class="footer" th:insert="fragmentos/pie::pie-pagina">
+      
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>     
+    <script src="tinymce/tinymce.min.js"></script>
+    <script>
+      
+      $(function () {
+          $("#fecha").datepicker({dateFormat: 'dd-mm-yy'});
+        }
+      );
+      
+      
+      tinymce.init({
+          selector: '#detalles',
+          plugins: "textcolor, table lists code",
+          toolbar: " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
+                    | bullist numlist outdent indent | forecolor backcolor table code"
+      });
+      
+      
+    </script>
+  </body>
+</html>
